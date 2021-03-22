@@ -1,21 +1,27 @@
 console.log("hello");
 
-/* THIS IS THE IMPORTANT PART */
-var inquirer = require("inquirer");
+//const fs = require("fs");
+const inquirer = require("inquirer");
+
 inquirer
   .prompt([
-    /* Pass your questions in here */
+    {
+      type: "input",
+      name: "name",
+      message: "What is your name?",
+    },
   ])
-  .then((answers) => {
-    // Use user feedback for... whatever!!
-  })
-  .catch((error) => {
-    if (error.isTtyError) {
-      // Prompt couldn't be rendered in the current environment
-    } else {
-      // Something else went wrong
-    }
-  });
+  .then((answers) => console.log(answers));
+
+//
+
+//
+
+//
+
+//
+
+//
 
 // MAIN FUNCTION
 // ASKS THE QUESTIONS AT THE BEGINNING
