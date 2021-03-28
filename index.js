@@ -18,68 +18,68 @@ const questions = [
   },
   {
     type: "input",
-    name: "Description",
+    name: "description",
     message: "How would you describe this project?",
   },
 
   {
     type: "confirm",
-    name: "Table of Contents",
+    name: "table of contents",
     message: "Add table of contents?",
     default: false,
   },
 
   {
     type: "input",
-    name: "Installation",
+    name: "installation",
     message: "How would you install this project?",
   },
 
   {
     type: "input",
-    name: "Instructions",
+    name: "instructions",
     message: "How can you use this project?",
   },
 
   {
     type: "input",
-    name: "Credits",
+    name: "credits",
     message: "Who was a part of the creation of this project?",
   },
 
   {
     type: "checkbox",
-    name: "License",
+    name: "license",
     message: "Which licences do you want to include in this project?",
     choices: ["Licence1", "Licence2", "Etc."],
   },
   {
     type: "checkbox",
-    name: "Badges",
+    name: "badges",
     message: "Which badges do you want to include in this project?",
     choices: ["Choice1", "Choice2", "Etc."],
   },
 
   {
     type: "input",
-    name: "Features",
+    name: "features",
     message: "What are a few features in this project?",
   },
 
   {
     type: "input",
-    name: "Contributers",
+    name: "contributers",
     message: "Who are some contributers in this project?",
   },
   {
     type: "input",
-    name: "Tests",
+    name: "tests",
     message: "What kind of tests are recomended for this project?",
   },
 
   {
     type: "confirm",
-    name: "Questions",
+    name: "questions",
     message:
       "Do you want to include a contact the developer section for this project?",
     default: false,
@@ -89,7 +89,41 @@ const questions = [
 
 //
 
-function generateReadme(response, user) {}
+function generateReadme(response, user) {
+  let tableOfContents = "## Table of Contents";
+
+  if (response.installation !== "") {
+    tableOfContents += "* [Installation](#installation)";
+  }
+  if (response.instructions !== "") {
+    tableOfContents += "* [Instructions](#instructions)";
+  }
+  if (response.credits !== "") {
+    tableOfContents += "* [Credits](#credits)";
+  }
+  if (response.license !== "") {
+    tableOfContents += "* [License](#license)";
+  }
+  if (response.badges !== "") {
+    tableOfContents += "* [Badges](#badges)";
+  }
+  if (response.features !== "") {
+    tableOfContents += "* [Features](#features)";
+  }
+  if (response.contributers !== "") {
+    tableOfContents += "* [Contributers](#contributers)";
+  }
+  if (response.tests !== "") {
+    tableOfContents += "* [Tests](#tests)";
+  }
+  if (response.questions !== "") {
+    tableOfContents += "* [Questions](#questions)";
+  }
+
+  //
+
+  //
+}
 
 //
 
@@ -137,7 +171,7 @@ async function main() {
     const readme = generateReadme(response, user);
     console.log(readme);
 
-    await createReadme("README.md", readme);
+    createReadme("README.md", readme);
   } catch (err) {
     console.log("ERROR");
   }
