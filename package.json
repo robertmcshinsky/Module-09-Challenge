@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/robertmcshinsky/Module-09-Challenge#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "inquirer": "^8.0.0"
   },
   "description": ""

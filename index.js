@@ -3,8 +3,14 @@ let myArray = [];
 
 const fs = require("fs");
 const inquirer = require("inquirer");
+const axios = require("axios");
 
 const questions = [
+  {
+    type: "input",
+    name: "github",
+    message: "What is your Github username?",
+  },
   {
     type: "input",
     name: "title",
@@ -79,12 +85,59 @@ const questions = [
     default: false,
   },
 ];
-// ASKS FOR THE INFORMATION UNDERNEATH THE SUB TITLE
+//
 
+//
+
+function generateReadme(response, user) {}
+
+//
+
+//
+
+const ghub = {
+  async getUserInfo(response) {
+    try {
+      let myResponse = await axios.get(
+        "https://api.github.com/users/" + response.github
+      );
+      console.log(response.github);
+      return myResponse.data;
+    } catch (err) {
+      console.log("ERROR");
+    }
+  },
+};
+
+//
+
+//
+
+function createReadme(filename, data) {
+  fs.writeFile(fileName, data, (err) => {
+    if (err) {
+      return console.log(err);
+    }
+
+    console.log("Your README.md file has been created!");
+  });
+}
+
+//
+
+//
 async function main() {
   try {
     const response = await inquirer.prompt(questions);
-    console.log(response);
+    console.log("Your README responses: ", response);
+
+    const user = await ghub.getUserInfo(response);
+    console.log("Your Github username: ", user);
+
+    const readme = generateReadme(response, user);
+    console.log(readme);
+
+    await createReadme("README.md", readme);
   } catch (err) {
     console.log("ERROR");
   }
