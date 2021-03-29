@@ -298,7 +298,7 @@ function generateReadme(response, user) {
   }
   if (response.github !== "") {
     let github =
-      "\n## ⁉ Questions ⁉\n>" +
+      "\n## Questions\n> ⁉" +
       "\n![Profile Picture](" +
       user.avatar_url +
       ")\n" +
