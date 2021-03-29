@@ -95,7 +95,7 @@ const questions = [
   {
     type: "input",
     name: "github",
-    message: "What is your Github username?",
+    message: "Github: 🧠\nWhat is your Github username?",
     default: "",
     validate: function (answer) {
       if (answer.length < 1) {
@@ -107,7 +107,7 @@ const questions = [
   {
     type: "input",
     name: "title",
-    message: "What is the Title for your project?",
+    message: "Title: ⚙ \nWhat is the Title for your project?",
     default: "",
     validate: function (answer) {
       if (answer.length < 1) {
@@ -119,33 +119,41 @@ const questions = [
   {
     type: "input",
     name: "description",
-    message: "How would you describe this project?",
+    message: "Description: 🧭 \nHow would you describe this project?",
+    default: "",
+  },
+  {
+    type: "input",
+    name: "website",
+    message: "Website: 🕸 \nWhat is the website address?",
     default: "",
   },
   {
     type: "input",
     name: "installation",
-    message: "How would you install this project?",
+    message:
+      "Installation Instructions: ⤵ \nWhat installation instructions are there?",
     default: "",
   },
   {
     type: "input",
-    name: "instructions",
-    message: "How can you use this project?",
+    name: "usage",
+    message: "Usage: 📄 \nHow can you use this project?",
     default: "",
   },
 
   {
     type: "input",
     name: "credits",
-    message: "Who was a part of the creation of this project?",
+    message: "Credits: ⭐ \nWho was a part of the creation of this project?",
     default: "",
   },
 
   {
     type: "checkbox",
     name: "license",
-    message: "Which licences do you want to include in this project?",
+    message:
+      "Licenses: 📇 \nWhich licences do you want to include in this project?",
     choices: [
       "GNU",
       "BSD",
@@ -165,61 +173,49 @@ const questions = [
     default: "",
   },
   {
-    type: "checkbox",
-    name: "badges",
-    message: "Which badges do you want to include in this project?",
-    choices: ["Choice1", "Choice2", "Etc."],
-    default: "",
-  },
-
-  {
     type: "input",
     name: "features",
-    message: "What are a few features in this project?",
+    message: "Features: 💻 \nWhat are a few features in this project?",
     default: "",
   },
 
   {
     type: "input",
     name: "contributers",
-    message: "Who are some contributers in this project?",
+    message: "Contributers: 👬 \nWho are some contributers in this project?",
     default: "",
   },
   {
     type: "input",
     name: "tests",
-    message: "What kind of tests are recomended for this project?",
+    message: "Tests: 📝 \nWhat kind of tests are recomended for this project?",
     default: "",
   },
-
   {
-    type: "confirm",
-    name: "questions",
-    message:
-      "Do you want to include a contact the developer section for this project?",
-    default: false,
+    type: "input",
+    name: "email",
+    message: "Email: \nPlease enter your email?",
+    default: "",
   },
 ];
 
 function generateReadme(response, user) {
   let tableOfContents = "\n## Table of Contents\n";
   let fileName = "README.md";
-  let draft = "";
+  let myREADME = "";
+  console.log(user);
 
   if (response.installation !== "") {
     tableOfContents += "\n[Installation](#installation)\n";
   }
-  if (response.instructions !== "") {
-    tableOfContents += "\n[Instructions](#instructions)\n";
+  if (response.usage !== "") {
+    tableOfContents += "\n[Usage](#usage)\n";
+  }
+  if (response.website !== "") {
+    tableOfContents += "\n[Website](#website)\n";
   }
   if (response.credits !== "") {
     tableOfContents += "\n[Credits](#credits)\n";
-  }
-  if (response.license !== "") {
-    tableOfContents += "\n[License](#license)\n";
-  }
-  if (response.badges !== "") {
-    tableOfContents += "\n[Badges](#badges)\n";
   }
   if (response.features !== "") {
     tableOfContents += "\n[Features](#features)\n";
@@ -230,72 +226,98 @@ function generateReadme(response, user) {
   if (response.tests !== "") {
     tableOfContents += "\n[Tests](#tests)\n";
   }
-  if (response.questions !== "") {
-    tableOfContents += "\n[Questions](#questions)\n";
+  if (response.license !== "") {
+    tableOfContents += "\n[License](#license)\n";
   }
+
+  tableOfContents += "\n[Questions](#questions)\n";
+
+  // Adding to the readme file
   if (response.title !== "") {
     let title = "\n# " + response.title;
-    draft += title;
-  }
-  if (response.description !== "") {
-    let description = "\n## Description\n" + response.description;
-    draft += description;
+    myREADME += title;
   }
 
-  draft += tableOfContents;
-
-  if (response.installation !== "") {
-    let installation = "\n## Installation\n" + response.installation;
-    draft += installation;
-  }
-  if (response.instructions !== "") {
-    let instructions = "\n## Instructions\n" + response.instructions;
-    draft += instructions;
-  }
-  if (response.credits !== "") {
-    let credits = "\n## credits\n" + response.credits;
-    draft += credits;
-  }
   if (response.license !== "") {
-    let license = "\n## License\n";
-    console.log("Length: " + response.license.length);
-    console.log("TRUE OR NOT: " + licenseNames.includes(response.license[0]));
-    console.log("before");
-    console.log("LICENSE RESPONSE: " + response.license[0]);
-    console.log("after");
+    let license = "";
     for (let i = 0; i < response.license.length; ++i) {
       if (licenseNames.includes(response.license[i])) {
-        console.log("SUPER TRUE");
+        let indexOfLicense = licenseNames.indexOf(response.license[i]);
+        license += "\n" + licenses[indexOfLicense].link;
       }
     }
-    console.log("DONE");
-    draft += license;
+    myREADME += license;
   }
-  if (response.badges !== "") {
-    let badges = "\n## Badges\n" + response.badges;
-    draft += badges;
+  if (response.description !== "") {
+    let description = "\n## Description\n> 🧭" + response.description;
+    myREADME += description;
+  }
+  myREADME += tableOfContents;
+  if (response.website !== "") {
+    let website =
+      "\n## Website  \n> 🕸 Visit the website live [here](" +
+      response.website +
+      ")";
+    myREADME += website;
+  }
+  if (response.installation !== "") {
+    let installation = "\n## Installation  \n> ⤵ " + response.installation;
+    myREADME += installation;
+  }
+  if (response.instructions !== "") {
+    let usage = "\n## Usage \n> 📄 " + response.usage;
+    myREADME += usage;
+  }
+  if (response.credits !== "") {
+    let credits = "\n## Credits \n> ⭐ " + response.credits;
+    myREADME += credits;
   }
   if (response.features !== "") {
-    let features = "\n## Features\n" + response.features;
-    draft += features;
+    let features = "\n## Features \n> 💻 " + response.features;
+    myREADME += features;
   }
   if (response.contributers !== "") {
-    let contributers = "\n## Contributers\n" + response.contributers;
-    draft += contributers;
+    let contributers =
+      "\n## Contributers \n> 👬 " + "@" + response.contributers;
+    myREADME += contributers;
   }
   if (response.tests !== "") {
-    let tests = "\n## Tests\n" + response.tests;
-    draft += tests;
+    let tests = "\n## Tests \n> 📝 " + response.tests;
+    myREADME += tests;
   }
-  if (response.questions !== "") {
-    let questions = "\n## Questions\n" + response.questions;
-    draft += questions;
+  if (response.license !== "") {
+    let licenseList =
+      "\n## License \n" + "\n> 📇 These are the licences used in this project.";
+    for (let k = 0; k < response.license.length; ++k) {
+      if (licenseNames.includes(response.license[k])) {
+        let indexOfLicense2 = licenseNames.indexOf(response.license[k]);
+        licenseList += "\n> - " + licenses[indexOfLicense2].name;
+      }
+    }
+    myREADME += licenseList;
+  }
+  if (response.github !== "") {
+    let github =
+      "\n## ⁉ Questions ⁉\n>" +
+      "\n![Profile Picture](" +
+      user.avatar_url +
+      ")\n" +
+      "\n>👦 Contact Me: " +
+      "[" +
+      response.github +
+      "](" +
+      user.html_url +
+      ")" +
+      "\n Email: " +
+      response.email;
+    myREADME += github;
   }
 
-  createFile(fileName, draft);
+  createFile(fileName, myREADME);
 }
 
 function createFile(fileName, name) {
+  console.log(name);
   fs.writeFile(fileName, name, (err) => {
     if (err) {
       return console.log(err);
