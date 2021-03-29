@@ -1,12 +1,10 @@
-# Command Line README.md Generator
+# Module 09 README.md Generator
 
 ## Description
 
-> 🧭This application is used to create a professional README.md for any project.
+> 🧭This Project is simple yet professional and creates a high quality and eye catching README.md
 
 ## Table of Contents
-
-[Installation](#installation)
 
 [Features](#features)
 
@@ -14,17 +12,13 @@
 
 [Questions](#questions)
 
-## Installation
+## Walk through Video
 
-> ⤵ To install, simply copy the code here, and paste it into your own project. Or any other way that you know better
-
-## Usage
-
-> 📄
+> [Video](https://drive.google.com/file/d/1tBzBlX6gTnPLYUtvR18Op3SC50VXtKWD/view)
 
 ## Features
 
-> 💻 A fun feature in this project is that it links to your github in order to retrieve your profile image and set it in the questions section.
+> 💻 One fun feature is that it connects the github repository profile picture and attatches it to the bottom of the README
 
 ## License
 
